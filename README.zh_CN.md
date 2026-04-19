@@ -21,7 +21,7 @@
   --><a href="https://github.com/skylinebear/new-api/releases/latest">
     <img src="https://img.shields.io/github/v/release/skylinebear/new-api?color=brightgreen&include_prereleases" alt="release">
   </a><!--
-  --><a href="https://hub.docker.com/r/CalciumIon/new-api">
+  --><a href="https://github.com/skylinebear/new-api">
     <img src="https://img.shields.io/badge/docker-dockerHub-blue" alt="docker">
   </a><!--
   --><a href="https://goreportcard.com/report/github.com/skylinebear/new-api">
@@ -117,7 +117,7 @@ cd new-api
 nano docker-compose.yml
 
 # 启动服务
-docker-compose up -d
+docker compose up -d --build
 ```
 
 <details>
@@ -125,22 +125,22 @@ docker-compose up -d
 
 ```bash
 # 拉取最新镜像
-docker pull calciumion/new-api:latest
+docker build -t eastcrea/new-api:local .
 
 # 使用 SQLite（默认）
 docker run --name new-api -d --restart always \
   -p 3000:3000 \
   -e TZ=Asia/Shanghai \
   -v ./data:/data \
-  calciumion/new-api:latest
+  eastcrea/new-api:local
 
 # 使用 MySQL
 docker run --name new-api -d --restart always \
   -p 3000:3000 \
-  -e SQL_DSN="root:123456@tcp(localhost:3306)/oneapi" \
+  -e SQL_DSN="root:123456@tcp(localhost:3306)/new-api" \
   -e TZ=Asia/Shanghai \
   -v ./data:/data \
-  calciumion/new-api:latest
+  eastcrea/new-api:local
 ```
 
 > **💡 提示：** `-v ./data:/data` 会将数据保存在当前目录的 `data` 文件夹中，你也可以改为绝对路径如 `-v /your/custom/path:/data`
@@ -291,7 +291,7 @@ docker run --name new-api -d --restart always \
 ## 🚢 部署
 
 > [!TIP]
-> **最新版 Docker 镜像：** `calciumion/new-api:latest`
+> **最新版 Docker 镜像：** `eastcrea/new-api:local`
 
 ### 📋 部署要求
 
@@ -343,7 +343,7 @@ cd new-api
 nano docker-compose.yml
 
 # 启动服务
-docker-compose up -d
+docker compose up -d --build
 ```
 
 </details>
@@ -353,21 +353,23 @@ docker-compose up -d
 
 **使用 SQLite：**
 ```bash
+docker build -t eastcrea/new-api:local .
+
 docker run --name new-api -d --restart always \
   -p 3000:3000 \
   -e TZ=Asia/Shanghai \
   -v ./data:/data \
-  calciumion/new-api:latest
+  eastcrea/new-api:local
 ```
 
 **使用 MySQL：**
 ```bash
 docker run --name new-api -d --restart always \
   -p 3000:3000 \
-  -e SQL_DSN="root:123456@tcp(localhost:3306)/oneapi" \
+  -e SQL_DSN="root:123456@tcp(localhost:3306)/new-api" \
   -e TZ=Asia/Shanghai \
   -v ./data:/data \
-  calciumion/new-api:latest
+  eastcrea/new-api:local
 ```
 
 > **💡 路径说明：**
@@ -449,7 +451,6 @@ docker run --name new-api -d --restart always \
 
 本项目为开源项目，在 [One API](https://github.com/songquanpeng/one-api)（MIT 许可证）的基础上进行二次开发。
 
-如果您所在的组织政策不允许使用 AGPLv3 许可的软件，或您希望规避 AGPLv3 的开源义务，请发送邮件至：[support@quantumnous.com](mailto:support@quantumnous.com)
 
 ---
 

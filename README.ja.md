@@ -21,7 +21,7 @@
   --><a href="https://github.com/skylinebear/new-api/releases/latest">
     <img src="https://img.shields.io/github/v/release/skylinebear/new-api?color=brightgreen&include_prereleases" alt="release">
   </a><!--
-  --><a href="https://hub.docker.com/r/CalciumIon/new-api">
+  --><a href="https://github.com/skylinebear/new-api">
     <img src="https://img.shields.io/badge/docker-dockerHub-blue" alt="docker">
   </a><!--
   --><a href="https://goreportcard.com/report/github.com/skylinebear/new-api">
@@ -117,7 +117,7 @@ cd new-api
 nano docker-compose.yml
 
 # サービスを起動
-docker-compose up -d
+docker compose up -d --build
 ```
 
 <details>
@@ -125,22 +125,22 @@ docker-compose up -d
 
 ```bash
 # 最新のイメージをプル
-docker pull calciumion/new-api:latest
+docker build -t eastcrea/new-api:local .
 
 # SQLiteを使用（デフォルト）
 docker run --name new-api -d --restart always \
   -p 3000:3000 \
   -e TZ=Asia/Shanghai \
   -v ./data:/data \
-  calciumion/new-api:latest
+  eastcrea/new-api:local
 
 # MySQLを使用
 docker run --name new-api -d --restart always \
   -p 3000:3000 \
-  -e SQL_DSN="root:123456@tcp(localhost:3306)/oneapi" \
+  -e SQL_DSN="root:123456@tcp(localhost:3306)/new-api" \
   -e TZ=Asia/Shanghai \
   -v ./data:/data \
-  calciumion/new-api:latest
+  eastcrea/new-api:local
 ```
 
 > **💡 ヒント:** `-v ./data:/data` は現在のディレクトリの `data` フォルダにデータを保存します。絶対パスに変更することもできます：`-v /your/custom/path:/data`
@@ -293,7 +293,7 @@ docker run --name new-api -d --restart always \
 ## 🚢 デプロイ
 
 > [!TIP]
-> **最新のDockerイメージ:** `calciumion/new-api:latest`
+> **最新のDockerイメージ:** `eastcrea/new-api:local`
 
 ### 📋 デプロイ要件
 
@@ -345,7 +345,7 @@ cd new-api
 nano docker-compose.yml
 
 # サービスを起動
-docker-compose up -d
+docker compose up -d --build
 ```
 
 </details>
@@ -359,17 +359,17 @@ docker run --name new-api -d --restart always \
   -p 3000:3000 \
   -e TZ=Asia/Shanghai \
   -v ./data:/data \
-  calciumion/new-api:latest
+  eastcrea/new-api:local
 ```
 
 **MySQLを使用:**
 ```bash
 docker run --name new-api -d --restart always \
   -p 3000:3000 \
-  -e SQL_DSN="root:123456@tcp(localhost:3306)/oneapi" \
+  -e SQL_DSN="root:123456@tcp(localhost:3306)/new-api" \
   -e TZ=Asia/Shanghai \
   -v ./data:/data \
-  calciumion/new-api:latest
+  eastcrea/new-api:local
 ```
 
 > **💡 パス説明:**
@@ -449,7 +449,6 @@ docker run --name new-api -d --restart always \
 
 本プロジェクトは、[One API](https://github.com/songquanpeng/one-api)（MITライセンス）をベースに開発されたオープンソースプロジェクトです。
 
-お客様の組織のポリシーがAGPLv3ライセンスのソフトウェアの使用を許可していない場合、またはAGPLv3のオープンソース義務を回避したい場合は、こちらまでお問い合わせください：[support@quantumnous.com](mailto:support@quantumnous.com)
 
 ---
 

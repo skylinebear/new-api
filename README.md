@@ -21,7 +21,7 @@
   --><a href="https://github.com/skylinebear/new-api/releases/latest">
     <img src="https://img.shields.io/github/v/release/skylinebear/new-api?color=brightgreen&include_prereleases" alt="release">
   </a><!--
-  --><a href="https://hub.docker.com/r/CalciumIon/new-api">
+  --><a href="https://github.com/skylinebear/new-api">
     <img src="https://img.shields.io/badge/docker-dockerHub-blue" alt="docker">
   </a><!--
   --><a href="https://goreportcard.com/report/github.com/skylinebear/new-api">
@@ -117,7 +117,7 @@ cd new-api
 nano docker-compose.yml
 
 # Start the service
-docker-compose up -d
+docker compose up -d --build
 ```
 
 <details>
@@ -125,22 +125,22 @@ docker-compose up -d
 
 ```bash
 # Pull the latest image
-docker pull calciumion/new-api:latest
+docker build -t eastcrea/new-api:local .
 
 # Using SQLite (default)
 docker run --name new-api -d --restart always \
   -p 3000:3000 \
   -e TZ=Asia/Shanghai \
   -v ./data:/data \
-  calciumion/new-api:latest
+  eastcrea/new-api:local
 
 # Using MySQL
 docker run --name new-api -d --restart always \
   -p 3000:3000 \
-  -e SQL_DSN="root:123456@tcp(localhost:3306)/oneapi" \
+  -e SQL_DSN="root:123456@tcp(localhost:3306)/new-api" \
   -e TZ=Asia/Shanghai \
   -v ./data:/data \
-  calciumion/new-api:latest
+  eastcrea/new-api:local
 ```
 
 > **💡 Tip:** `-v ./data:/data` will save data in the `data` folder of the current directory, you can also change it to an absolute path like `-v /your/custom/path:/data`
@@ -291,7 +291,7 @@ docker run --name new-api -d --restart always \
 ## 🚢 Deployment
 
 > [!TIP]
-> **Latest Docker image:** `calciumion/new-api:latest`
+> **Latest Docker image:** `eastcrea/new-api:local`
 
 ### 📋 Deployment Requirements
 
@@ -343,7 +343,7 @@ cd new-api
 nano docker-compose.yml
 
 # Start service
-docker-compose up -d
+docker compose up -d --build
 ```
 
 </details>
@@ -353,21 +353,23 @@ docker-compose up -d
 
 **Using SQLite:**
 ```bash
+docker build -t eastcrea/new-api:local .
+
 docker run --name new-api -d --restart always \
   -p 3000:3000 \
   -e TZ=Asia/Shanghai \
   -v ./data:/data \
-  calciumion/new-api:latest
+  eastcrea/new-api:local
 ```
 
 **Using MySQL:**
 ```bash
 docker run --name new-api -d --restart always \
   -p 3000:3000 \
-  -e SQL_DSN="root:123456@tcp(localhost:3306)/oneapi" \
+  -e SQL_DSN="root:123456@tcp(localhost:3306)/new-api" \
   -e TZ=Asia/Shanghai \
   -v ./data:/data \
-  calciumion/new-api:latest
+  eastcrea/new-api:local
 ```
 
 > **💡 Path explanation:**
@@ -449,7 +451,6 @@ This project is licensed under the [GNU Affero General Public License v3.0 (AGPL
 
 This is an open-source project developed based on [One API](https://github.com/songquanpeng/one-api) (MIT License).
 
-If your organization's policies do not permit the use of AGPLv3-licensed software, or if you wish to avoid the open-source obligations of AGPLv3, please contact us at: [support@quantumnous.com](mailto:support@quantumnous.com)
 
 ---
 

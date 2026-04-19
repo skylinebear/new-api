@@ -51,29 +51,18 @@
 ### 方法二：使用 Docker Compose
 
 1. 在宝塔面板中创建网站目录，如 `/www/wwwroot/new-api`
-2. 创建 `docker-compose.yml` 文件：
-
-```yaml
-version: '3'
-services:
-  new-api:
-    image: calciumion/new-api:latest
-    container_name: new-api
-    restart: always
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./data:/data
-    environment:
-      - SESSION_SECRET=your_session_secret_here  # 请修改为随机字符串
-      - TZ=Asia/Shanghai
-```
-
-1. 在终端中进入目录并启动：
+2. 克隆你自己的源码，或把当前仓库上传到服务器：
 
 ```bash
-cd /www/wwwroot/new-api
-docker-compose up -d
+cd /www/wwwroot
+git clone https://github.com/skylinebear/new-api.git
+cd new-api
+```
+
+3. 按需修改 `docker-compose.yml` 中的数据库、Redis 和密钥配置，然后启动：
+
+```bash
+docker compose up -d --build
 ```
 
 ***
@@ -125,11 +114,11 @@ volumes:
 ### Q4：如何更新版本？
 
 ```bash
-# 拉取最新镜像
-docker pull calciumion/new-api:latest
+# 拉取你自己的最新代码
+git pull
 
-# 重启容器
-docker-compose down && docker-compose up -d
+# 重新构建并重启
+docker compose down && docker compose up -d --build
 ```
 
 ***
@@ -148,4 +137,3 @@ docker-compose down && docker-compose up -d
 ![宝塔面板 Docker 安装](https://github.com/user-attachments/assets/7a6fc03e-c457-45e4-b8f9-184508fc26b0)
 
 > ⚠️ 注意：密钥为环境变量 `SESSION_SECRET`，请务必设置！
-
